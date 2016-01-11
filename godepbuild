@@ -1,0 +1,15 @@
+#!/bin/sh
+echo "install git and mercurial"
+apk add --update git mercurial
+
+echo "install godep"
+go get github.com/tools/godep
+
+echo "build mesos-dns"
+cd /go/src/github.com/coreos/etcd
+
+if [ $1 ]; then
+git checkout v$1
+fi
+
+godep go install 

@@ -1,2 +1,8 @@
 #!/bin/sh
-docker build -t asdfsx/alpine-etcd:2.2.3 .
+VERSION="2.2.3"
+
+docker pull golang:1.5.2-alpine
+mkdir go
+git clone https://github.com/coreos/etcd "$PWD"/go/src/github.com/coreos/etcd
+docker run -it --rm -v "$PWD"/go:/go -v "$PWD"/godepbuild:/godepbuild golang:1.5.2-alpine /godepbuild ${VERSION}
+docker build -t asdfsx/alpine-etcd:${VERSION} .
